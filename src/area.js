@@ -10,6 +10,17 @@ this.redPath=[91,92,93,94,95,81,66,51,36,21,6,7,8,23,38,53,68,83,99,100,101,102,
 this.greenPath=[23,38,53,68,83,99,100,101,102,103,104,119,134,133,132,131,130,129,143,158,173,188,203,218,217,216,201,186,171,156,141,125,124,123,122,121,120,105,90,91,92,93,94,95,81,66,51,36,21,6,7,22,37,52,67,82];
 this.bluePath=[201,186,171,156,141,125,124,123,122,121,120,105,90,91,92,93,94,95,81,66,51,36,21,6,7,8,23,38,53,68,83,99,100,101,102,103,104,119,134,133,132,131,130,129,143,158,173,188,203,218,217,202,187,172,157,142];
 this.yellowPath=[133,132,131,130,129,143,158,173,188,203,218,217,216,201,186,171,156,141,125,124,123,122,121,120,105,90,91,92,93,94,95,81,66,51,36,21,6,7,8,23,38,53,68,83,99,100,101,102,103,104,119,118,117,116,115,114,113];
+let strx=[this.size,this.size*10,this.size,this.size*10];
+let stry=[this.size,this.size,this.size*10,this.size*10];
+this.starts=[];
+for(let i=0; i<strx.length;i++){
+    this.starts.push([
+        {x:strx[i]+this.size,y:stry[i]+this.size},
+        {x:strx[i]+this.size*3,y:stry[i]+this.size},
+        {x:strx[i]+this.size,y:stry[i]+this.size*3},
+        {x:strx[i]+this.size*3,y:stry[i]+this.size*3}
+    ]);
+}
 
 for(let i=0;i<this.rows;i++){
     for(let j=0;j<this.cols;j++){
@@ -43,9 +54,10 @@ this.base=(x,y,color)=>{
 
  circle(x+this.size,y+this.size,this.size);
  circle(x+this.size*3,y+this.size,this.size);
-
  circle(x+this.size,y+this.size*3,this.size);
  circle(x+this.size*3,y+this.size*3,this.size);
+
+
 }
 this.arrow=(x,y,angle,color)=>{
     push()
