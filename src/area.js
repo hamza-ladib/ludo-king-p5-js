@@ -30,7 +30,7 @@ for(let i=0;i<this.rows;i++){
           y:i*this.size,
           enable:true,
           color:"#ffffff",
-          number:this.count
+          number:this.count,
         }
         if(square.number ==91 ||(square.number >=106 && square.number <=110 ) ){
             square.color="#ec1d27";}
