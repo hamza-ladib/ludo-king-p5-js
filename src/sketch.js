@@ -32,9 +32,14 @@ function setup() {
   players.push(redPlayer,greenPlayer,bluePlayer,yellowPlayer);
   players=players.slice(0,playersNumber);
   enabledPlayer=redPlayer;
+  players.forEach(element => {
+    console.log(element.path.length);
+
+  });
   catchp=enabledPlayer;
  
   dice= new Dice(20,width+10);
+
   }
   function draw() {
     background("#ffffff")
@@ -49,33 +54,10 @@ function setup() {
       else player.waiting=false;
           for (let i=0;i<player.soldiers.length;i++){
             if(player.movingStart[i]){
-          
-          /********************** */
-             players.forEach(p=>{
-              ////////////// 
-                 if(p!=player){
-               p.soldiers.forEach(s=>{
-                if(player.soldiers[i].x==s.x && player.soldiers[i].y==s.y){
-
-                  console.log(player.color+"reached " + p.color);} 
-          
-
-               })
-              }
-             })
-               player.update(dice.rd,i);
-            }
-          
-
-
-           
-             /************************* *
-          /******************** */
-          
-          /************************** */
+              // player.update(dice.rd,i,players);
+               player.update(57,i,players);
              
-            
-            
+            } 
           }
           player.show();
             }
@@ -103,7 +85,8 @@ function setup() {
       /********************* */ 
           for (let i=0;i<enabledPlayer.soldiers.length;i++){
             let ds=dist(enabledPlayer.soldiers[i].x+width/30,enabledPlayer.soldiers[i].y+width/30,mouseX,mouseY);
-            player.makeIt(dice.rd,i);
+            player.makeIt(57,i);
+            //player.makeIt(dice.rd,i);
             if(ds<20 && !timeRoll && enabledPlayer.soldiers[i].isEnabled){
               enabledPlayer.movingStart[i]=true;
               enabledPlayer=players[(players.indexOf(enabledPlayer)+1)%players. length];

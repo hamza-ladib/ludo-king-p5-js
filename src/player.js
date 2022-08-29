@@ -10,11 +10,12 @@ function Player(color,l,start,allSquares,path){
     this.movingStart=[false,false,false,false];
     this.current=this.allSquares[0];
     this.path=path;
+    this.starts=start;
     this.soldiers=[
-        {x:start[0].x-this.size/2,y:start[0].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0},
-        {x:start[1].x-this.size/2,y:start[1].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0},
-        {x:start[2].x-this.size/2,y:start[2].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0},
-        {x:start[3].x-this.size/2,y:start[3].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0},
+        {x:start[0].x-this.size/2,y:start[0].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0,index:0},
+        {x:start[1].x-this.size/2,y:start[1].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0,index:1},
+        {x:start[2].x-this.size/2,y:start[2].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0,index:2},
+        {x:start[3].x-this.size/2,y:start[3].y-this.size/2,isSelected:false,isEnabled:true,lastPos:0,index:3},
     ]
     this.show=()=>{
        fill ("black");
@@ -49,26 +50,45 @@ function Player(color,l,start,allSquares,path){
         rect(this.soldiers[3].x+this.size/4,this.soldiers[3].y+2.5*this.size/4,this.size/2,5)
         ////////////////////////////////////
     }
-    this.update=(number,index)=>{
+    this.update=(number,index,players)=>{
         let count=0;
-        this.current=this.allSquares[this.path[this.soldiers[index].lastPos+number]];
         let interv= setInterval(()=>{
     this.soldiers[index].x=this.allSquares[this.path[this.soldiers[index].lastPos]].x;
     this.soldiers[index].y=this.allSquares[this.path[this.soldiers[index].lastPos]].y;
     this.soldiers[index].lastPos++;
     count++;
     if(count==number){ 
+            //**************** */
+            players.forEach(p => {
+                if(p!=this){
+                    console.log(p.color);
+                    p.soldiers.forEach(s=>{
                     
-                    
+                     if(
+                        this.soldiers[index].x==s.x && this.soldiers[index].y==s.y
+                        ){
+                            console.log('logic',p.color,s.index);
+                            console.log()
+                      s.x=p.starts[s.index].x-this.size/2;
+                      s.y=p.starts[s.index].y-this.size/2;
+                      s.isSelected=false;
+                    s.isEnabled=true;
+                      s.lastPos=0;
+                        }
+                    })
+                }
+                
+            });
 
-                     clearInterval(interv);
+ clearInterval(interv);
                  } 
          },100);
-
+         /***************************/
          this.movingStart[index]=false;
          
         }
         this.makeIt=(number,index)=>{
+            
            
                 if(this.soldiers[index].lastPos+number>this.path.length)
                       this.soldiers[index].isEnabled=false;
