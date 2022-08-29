@@ -32,12 +32,8 @@ function setup() {
   players.push(redPlayer,greenPlayer,bluePlayer,yellowPlayer);
   players=players.slice(0,playersNumber);
   enabledPlayer=redPlayer;
-  players.forEach(element => {
-    console.log(element.path.length);
+  
 
-  });
-  catchp=enabledPlayer;
- 
   dice= new Dice(20,width+10);
 
   }
@@ -48,6 +44,24 @@ function setup() {
      circle(150,width+35,30);
     ////////////////////
     area.show();
+    ///**************  winner  && can't make a move ************** */
+    players.forEach(p=>{
+     
+     if(p.soldiers[0].lastPos==57 && p.soldiers[1].lastPos==57 &&p.soldiers[2].lastPos==57 &&p.soldiers[3].lastPos==57){
+        if(players.length==1){
+          alert(p.colors+" wins ");
+          noLoop();
+        }
+        
+        
+        else {
+          players.splice(players.indexOf(p),1);
+        }
+        
+      
+      
+      }
+    })
     /*******about player*** */
     for(player of players){ 
       if(timeToMove) player.waiting=true;
@@ -55,7 +69,7 @@ function setup() {
           for (let i=0;i<player.soldiers.length;i++){
             if(player.movingStart[i]){
               // player.update(dice.rd,i,players);
-               player.update(57,i,players);
+               player.update(56,i,players);
              
             } 
           }
@@ -83,9 +97,13 @@ function setup() {
       timeToMove=true;
       } 
       /********************* */ 
+      if(!enabledPlayer.soldiers[0].isEnabled && !enabledPlayer.soldiers[1].isEnabled && !enabledPlayer.soldiers[2].isEnabled && !enabledPlayer.soldiers[3].isEnabled){
+        enabledPlayer=players[(players.indexOf(enabledPlayer)+1)%players. length];
+
+       }
           for (let i=0;i<enabledPlayer.soldiers.length;i++){
             let ds=dist(enabledPlayer.soldiers[i].x+width/30,enabledPlayer.soldiers[i].y+width/30,mouseX,mouseY);
-            player.makeIt(57,i);
+            enabledPlayer.makeIt(56,i);
             //player.makeIt(dice.rd,i);
             if(ds<20 && !timeRoll && enabledPlayer.soldiers[i].isEnabled){
               enabledPlayer.movingStart[i]=true;

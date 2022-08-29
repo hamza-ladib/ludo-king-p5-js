@@ -55,20 +55,17 @@ function Player(color,l,start,allSquares,path){
         let interv= setInterval(()=>{
     this.soldiers[index].x=this.allSquares[this.path[this.soldiers[index].lastPos]].x;
     this.soldiers[index].y=this.allSquares[this.path[this.soldiers[index].lastPos]].y;
+
     this.soldiers[index].lastPos++;
     count++;
     if(count==number){ 
             //**************** */
-            players.forEach(p => {
-                if(p!=this){
-                    console.log(p.color);
-                    p.soldiers.forEach(s=>{
+        players.forEach(p => {
+            if(p!=this){
+                    /**** check if a soldier reached another player soldier ** */
+                p.soldiers.forEach(s=>{
                     
-                     if(
-                        this.soldiers[index].x==s.x && this.soldiers[index].y==s.y
-                        ){
-                            console.log('logic',p.color,s.index);
-                            console.log()
+                     if(this.soldiers[index].x==s.x && this.soldiers[index].y==s.y){
                       s.x=p.starts[s.index].x-this.size/2;
                       s.y=p.starts[s.index].y-this.size/2;
                       s.isSelected=false;
@@ -85,16 +82,13 @@ function Player(color,l,start,allSquares,path){
          },100);
          /***************************/
          this.movingStart[index]=false;
-         
         }
-        this.makeIt=(number,index)=>{
+this.makeIt=(number,index)=>{
             
-           
-                if(this.soldiers[index].lastPos+number>this.path.length)
-                      this.soldiers[index].isEnabled=false;
-                
-                else 
-                this.soldiers[index].isEnabled=true;
-        }
+    if(this.soldiers[index].lastPos+number>this.path.length){
+        this.soldiers[index].isEnabled=false;}
+     else 
+        this.soldiers[index].isEnabled=true;
+                            }
     }
     
