@@ -68,8 +68,8 @@ function setup() {
       else player.waiting=false;
           for (let i=0;i<player.soldiers.length;i++){
             if(player.movingStart[i]){
-              // player.update(dice.rd,i,players);
-               player.update(56,i,players);
+              player.update(dice.rd,i,players);
+               //player.update(56,i,players);
              
             } 
           }
@@ -103,8 +103,8 @@ function setup() {
        }
           for (let i=0;i<enabledPlayer.soldiers.length;i++){
             let ds=dist(enabledPlayer.soldiers[i].x+width/30,enabledPlayer.soldiers[i].y+width/30,mouseX,mouseY);
-            enabledPlayer.makeIt(56,i);
-            //player.makeIt(dice.rd,i);
+            //enabledPlayer.makeIt(56,i);
+            enabledPlaye.makeIt(dice.rd,i);
             if(ds<20 && !timeRoll && enabledPlayer.soldiers[i].isEnabled){
               enabledPlayer.movingStart[i]=true;
               enabledPlayer=players[(players.indexOf(enabledPlayer)+1)%players. length];
